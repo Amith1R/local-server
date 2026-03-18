@@ -1,0 +1,37 @@
+<div class="panel" id="panel-runner">
+    <div class="card c-or">
+        <div class="ch">
+            <div class="ch-l">
+                <div class="ch-icon or">RN</div>
+                <div class="ch-title">Run Command</div>
+            </div>
+            <div style="display:flex;gap:.35rem">
+                <button class="btn gh" style="font-size:.6rem;padding:.2rem .5rem" onclick="clearRunner()">Clear</button>
+                <button class="btn r" style="font-size:.6rem;padding:.2rem .5rem;display:none" id="runner-kill-btn" onclick="killRunner()">Stop</button>
+            </div>
+        </div>
+        <div style="display:flex;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap">
+            <input type="text" id="runner-cmd" class="dl-inp"
+                   placeholder="df -h | docker ps | yt-dlp --version | ls /mnt/exstore"
+                   style="flex:1;min-width:0;font-size:.76rem"
+                   onkeydown="if(event.key==='Enter')runCommand()">
+            <button class="btn or" onclick="runCommand()" id="runner-run-btn">Run</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.7rem" id="runner-chips"></div>
+        <div id="runner-out"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.45rem">
+            <span id="runner-status" style="font-size:.62rem;color:var(--tx3)">Ready</span>
+            <button class="btn gh" style="font-size:.58rem;padding:.2rem .5rem" onclick="copyRunnerOut()">Copy</button>
+        </div>
+    </div>
+    <div class="card c-none" style="margin-top:1rem">
+        <div class="ch">
+            <div class="ch-l">
+                <div class="ch-icon or">HX</div>
+                <div class="ch-title">History</div>
+            </div>
+            <button class="btn gh" style="font-size:.58rem;padding:.2rem .5rem" onclick="clearRunnerHist()">Clear</button>
+        </div>
+        <div id="runner-hist" style="font-size:.7rem;color:var(--tx2)">No commands yet</div>
+    </div>
+</div>

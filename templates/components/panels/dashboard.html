@@ -1,0 +1,210 @@
+<div class="panel active" id="panel-dashboard">
+    <div class="g3">
+        <!-- Services Card -->
+        <div class="card">
+            <div class="ch">
+                <div class="ch-l">
+                    <div class="ch-icon g">SV</div>
+                    <div><div class="ch-title">Services</div></div>
+                </div>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-gl"></div><span class="sname">Gluetun VPN</span></div>
+                <span class="sbadge" id="b-gl"></span>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-qb"></div><span class="sname">qBittorrent</span></div>
+                <span class="sbadge" id="b-qb"></span>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-jf"></div><span class="sname">Jellyfin</span></div>
+                <span class="sbadge" id="b-jf"></span>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-sm"></div><span class="sname">Samba</span></div>
+                <span class="sbadge" id="b-sm"></span>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-wt"></div><span class="sname">Wetty</span></div>
+                <span class="sbadge" id="b-wt"></span>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-fb"></div><span class="sname">FileBrowser</span></div>
+                <span class="sbadge" id="b-fb"></span>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-nk"></div><span class="sname">Neko Browser</span></div>
+                <span class="sbadge" id="b-nk"></span>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-dk"></div><span class="sname">Docker</span></div>
+                <span class="sbadge" id="b-dk"></span>
+            </div>
+            <div class="srow">
+                <div class="srow-l"><div class="sdot" id="d-ds"></div><span class="sname">External Disk</span></div>
+                <span class="sbadge" id="b-ds"></span>
+            </div>
+        </div>
+        
+        <!-- Network Card -->
+        <div class="card c-bl">
+            <div class="ch">
+                <div class="ch-l">
+                    <div class="ch-icon b">NW</div>
+                    <div><div class="ch-title">Network</div></div>
+                </div>
+            </div>
+            <div class="kv"><span class="kk">Local IP</span><span class="vv y" id="n-lip">--</span></div>
+            <div class="kv"><span class="kk">Home IP</span><span class="vv" id="n-hip">--</span></div>
+            <div class="kv">
+                <span class="kk">VPN IP</span>
+                <div style="display:flex;align-items:center;gap:.35rem">
+                    <span class="vv" id="n-vip">--</span>
+                    <span class="sbadge" id="n-vbdg"></span>
+                </div>
+            </div>
+            <div class="kv"><span class="kk">AvistaZ</span><span class="vv cy" id="n-aip">--</span></div>
+            <div class="kv"><span class="kk">RX rate</span><span class="vv g" id="n-rx">--</span></div>
+            <div class="kv"><span class="kk">TX rate</span><span class="vv y" id="n-tx">--</span></div>
+            <div class="kv"><span class="kk">Uptime</span><span class="vv" id="n-up">--</span></div>
+            <div class="kv" id="disk-row" style="display:none">
+                <span class="kk">Disk used</span><span class="vv" id="n-disk">--</span>
+            </div>
+        </div>
+        
+        <!-- Torrents Card -->
+        <div class="card c-cy">
+            <div class="ch">
+                <div class="ch-l">
+                    <div class="ch-icon cy">qB</div>
+                    <div><div class="ch-title">qBittorrent</div></div>
+                </div>
+                <span class="sbadge cy" id="qb-live" style="display:none">Live</span>
+            </div>
+            <div class="kv"><span class="kk">Total</span><span class="vv" id="q-total">--</span></div>
+            <div class="kv"><span class="kk">Downloading</span><span class="vv g" id="q-dl">--</span></div>
+            <div class="kv"><span class="kk">Seeding</span><span class="vv b" id="q-seed">--</span></div>
+            <div class="kv"><span class="kk">Paused</span><span class="vv y" id="q-paused">--</span></div>
+            <div class="kv"><span class="kk">Errored</span><span class="vv r" id="q-err">--</span></div>
+            <div class="kv"><span class="kk">DL Speed</span><span class="vv g" id="q-dlspd">--</span></div>
+            <div class="kv"><span class="kk">UL Speed</span><span class="vv y" id="q-ulspd">--</span></div>
+            <div class="kv"><span class="kk">Downloaded</span><span class="vv" id="q-dltot">--</span></div>
+            <div class="kv"><span class="kk">Uploaded</span><span class="vv" id="q-ultot">--</span></div>
+        </div>
+    </div>
+    
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="card c-none">
+            <div class="ch" style="margin-bottom:.5rem">
+                <div class="ch-l"><div class="ch-icon g">CP</div><div class="ch-title">CPU</div></div>
+            </div>
+            <div class="stat-val g" id="s-cpu">--</div>
+            <div class="stat-lbl">usage</div>
+            <div class="bar"><div class="barf g" id="pb-cpu" style="width:0%"></div></div>
+        </div>
+        <div class="card c-none">
+            <div class="ch" style="margin-bottom:.5rem">
+                <div class="ch-l"><div class="ch-icon g">RM</div><div class="ch-title">RAM</div></div>
+            </div>
+            <div class="stat-val g" id="s-ram">--</div>
+            <div class="stat-lbl" id="s-ram-s">--</div>
+            <div class="bar"><div class="barf g" id="pb-ram" style="width:0%"></div></div>
+        </div>
+        <div class="card c-none">
+            <div class="ch" style="margin-bottom:.5rem">
+                <div class="ch-l"><div class="ch-icon pu">SW</div><div class="ch-title">Swap</div></div>
+            </div>
+            <div class="stat-val pu" id="s-swap">--</div>
+            <div class="stat-lbl" id="s-swap-s">--</div>
+            <div class="bar"><div class="barf pu" id="pb-swap" style="width:0%"></div></div>
+        </div>
+        <div class="card c-none">
+            <div class="ch" style="margin-bottom:.5rem">
+                <div class="ch-l"><div class="ch-icon b">LD</div><div class="ch-title">Load</div></div>
+            </div>
+            <div class="stat-val b" id="s-load" style="font-size:1rem;margin-top:.25rem;line-height:1.5">--</div>
+            <div class="stat-lbl" id="s-cores">--</div>
+        </div>
+        <div class="card c-none">
+            <div class="ch" style="margin-bottom:.5rem">
+                <div class="ch-l"><div class="ch-icon y">TM</div><div class="ch-title">Temps</div></div>
+            </div>
+            <div class="temp-grid" id="tg"><span style="font-size:.62rem;color:var(--tx2)">...</span></div>
+        </div>
+        <div class="card c-none">
+            <div class="ch" style="margin-bottom:.5rem">
+                <div class="ch-l"><div class="ch-icon or">IO</div><div class="ch-title">Disk I/O</div></div>
+            </div>
+            <div class="kv" style="border:none;padding:.1rem 0">
+                <span class="kk">R</span><span class="vv g" id="s-dr">--</span>
+            </div>
+            <div class="kv" style="border:none;padding:.1rem 0">
+                <span class="kk">W</span><span class="vv y" id="s-dw">--</span>
+            </div>
+        </div>
+        <div class="card c-none">
+            <div class="ch" style="margin-bottom:.5rem">
+                <div class="ch-l"><div class="ch-icon y">PW</div><div class="ch-title">Power</div></div>
+            </div>
+            <div class="stat-val y" id="s-watts">--</div>
+            <div class="stat-lbl">watts live</div>
+            <div style="font-size:.62rem;color:var(--tx2);margin-top:.25rem" id="s-cost-today">--</div>
+        </div>
+    </div>
+    
+    <!-- Bottom Row -->
+    <div class="g2">
+        <!-- Jellyfin -->
+        <div class="card c-or">
+            <div class="ch">
+                <div class="ch-l"><div class="ch-icon or">JF</div><div><div class="ch-title">Jellyfin</div></div></div>
+            </div>
+            <div id="jf-stat" style="font-size:.72rem;color:var(--tx2)">checking...</div>
+            <div id="jf-sessions" style="margin-top:.6rem"></div>
+            <a class="btn or" id="jf-link" href="#" target="_blank" rel="noopener" style="display:none;margin-top:.65rem;font-size:.68rem">Open Jellyfin</a>
+        </div>
+        
+        <!-- Quick Links + Samba -->
+        <div class="card c-pu">
+            <div class="ch">
+                <div class="ch-l"><div class="ch-icon pu">QL</div><div><div class="ch-title">Quick Links</div></div></div>
+            </div>
+            <div id="qlinks" style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.8rem">
+                <span style="font-size:.64rem;color:var(--tx2)">Start services...</span>
+            </div>
+            <div class="sep">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+                    <div style="font-size:.65rem;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.06em">Samba Connections</div>
+                    <div style="font-size:.68rem;color:var(--cy);font-family:var(--mono)" id="s-smb-info">--</div>
+                </div>
+                <div id="smb-conns"><span style="font-size:.65rem;color:var(--tx2)">No active connections</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Processes -->
+    <div class="card c-none">
+        <div class="ch">
+            <div class="ch-l"><div class="ch-icon b">PS</div><div class="ch-title">Top Processes</div></div>
+            <button class="btn gh" style="font-size:.6rem;padding:.2rem .5rem" onclick="fetchProcs()">Refresh</button>
+        </div>
+        <div style="overflow-x:auto">
+            <table class="ptbl">
+                <thead>
+                    <tr>
+                        <th>Process</th>
+                        <th>PID</th>
+                        <th style="text-align:right">RAM%</th>
+                        <th style="text-align:right">CPU%</th>
+                        <th style="text-align:right">Time</th>
+                        <th style="text-align:right">Kill</th>
+                    </tr>
+                </thead>
+                <tbody id="proc-body">
+                    <tr><td colspan="6" style="color:var(--tx2);padding:.5rem 0">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

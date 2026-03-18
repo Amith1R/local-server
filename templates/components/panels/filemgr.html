@@ -1,0 +1,24 @@
+<div class="panel" id="panel-filemgr">
+    <div class="card c-cy">
+        <div class="ch">
+            <div class="ch-l">
+                <div class="ch-icon cy">FM</div>
+                <div class="ch-title">File Manager</div>
+            </div>
+            <div style="display:flex;gap:.35rem">
+                <button class="btn gh" style="font-size:.6rem;padding:.2rem .5rem" onclick="fmUp()">Up</button>
+                <button class="btn gh" style="font-size:.6rem;padding:.2rem .5rem" onclick="loadFM()">Refresh</button>
+            </div>
+        </div>
+        <div class="fm-tb">
+            <div class="fm-path" id="fm-path">/mnt/exstore</div>
+            <input type="text" id="fm-goto" class="dl-inp" placeholder="Go to path..."
+                   style="min-width:unset;width:180px;flex:unset;font-size:.68rem;padding:.32rem .62rem"
+                   onkeydown="if(event.key==='Enter')fmGoto()">
+            <button class="btn cy" style="font-size:.64rem;padding:.32rem .62rem" onclick="fmGoto()">Go</button>
+        </div>
+        <div id="fm-list" style="min-height:100px">
+            <div style="color:var(--tx2);font-size:.74rem;padding:.5rem">Loading...</div>
+        </div>
+    </div>
+</div>

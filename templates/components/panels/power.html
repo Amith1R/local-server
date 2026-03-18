@@ -1,0 +1,114 @@
+<div class="panel" id="panel-power">
+    <div class="g2">
+        <div>
+            <div class="card c-yl">
+                <div class="ch">
+                    <div class="ch-l">
+                        <div class="ch-icon y">PW</div>
+                        <div>
+                            <div class="ch-title">Electricity Cost Estimate</div>
+                            <div class="ch-sub">Server-side tracking - updates every minute</div>
+                        </div>
+                    </div>
+                    <div id="live-watts-badge" style="display:none"></div>
+                </div>
+                <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem">
+                    <div>
+                        <div class="cost-big" id="cost-today">--</div>
+                        <div class="cost-lbl">Today</div>
+                    </div>
+                    <div>
+                        <div class="cost-big" id="cost-month">--</div>
+                        <div class="cost-lbl">This Month</div>
+                    </div>
+                    <div>
+                        <div class="cost-big" id="cost-total">--</div>
+                        <div class="cost-lbl">Total tracked</div>
+                    </div>
+                </div>
+                <div class="cost-row">
+                    <span class="cost-k">Uptime today</span>
+                    <span class="cost-v" id="cost-uptime">--</span>
+                </div>
+                <div class="cost-row">
+                    <span class="cost-k">Live power draw</span>
+                    <span class="cost-v" id="cost-watts">--</span>
+                </div>
+                <div class="cost-row">
+                    <span class="cost-k">Energy today</span>
+                    <span class="cost-v" id="cost-kwh-today">--</span>
+                </div>
+                <div class="cost-row">
+                    <span class="cost-k">Rate</span>
+                    <span class="cost-v" id="cost-rate-display">--</span>
+                </div>
+                <div class="cost-row">
+                    <span class="cost-k">Tracking since</span>
+                    <span class="cost-v" id="cost-since">--</span>
+                </div>
+            </div>
+            <div class="card c-yl" style="margin-top:1rem">
+                <div class="ch">
+                    <div class="ch-l">
+                        <div class="ch-icon y">ST</div>
+                        <div class="ch-title">Settings</div>
+                    </div>
+                </div>
+                <div class="set-row">
+                    <span class="set-label">
+                        Server wattage<br>
+                        <span style="font-size:.6rem;color:var(--tx3)">ThinkPad i5-6300U idle ~6-8W</span>
+                    </span>
+                    <input type="number" class="set-inp" id="set-watts" value="8" min="1" max="500">
+                    <span class="set-unit">Watts</span>
+                </div>
+                <div class="set-row">
+                    <span class="set-label">
+                        Electricity rate<br>
+                        <span style="font-size:.6rem;color:var(--tx3)">India avg Rs 6-10 per unit</span>
+                    </span>
+                    <input type="number" class="set-inp" id="set-rate" value="8" min="0.1" max="100" step="0.1">
+                    <span class="set-unit">Rs/kWh</span>
+                </div>
+                <div class="set-row">
+                    <span class="set-label">Currency symbol</span>
+                    <input type="text" class="set-inp" id="set-currency" value="Rs" maxlength="5" style="text-align:left">
+                    <span class="set-unit"></span>
+                </div>
+                <div class="btn-row" style="margin-top:.7rem">
+                    <button class="btn y" onclick="saveCostSettings()">Save Settings</button>
+                    <button class="btn gh" onclick="resetCostTracking()">Reset Data</button>
+                    <button class="btn gh" onclick="fetchCostData()">Refresh</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="card c-yl">
+                <div class="ch">
+                    <div class="ch-l">
+                        <div class="ch-icon y">DY</div>
+                        <div class="ch-title">Daily Breakdown</div>
+                        <div class="ch-sub">Last 30 days</div>
+                    </div>
+                </div>
+                <div id="cost-daily">Loading...</div>
+            </div>
+            <div class="card c-none" style="margin-top:1rem">
+                <div class="ch">
+                    <div class="ch-l">
+                        <div class="ch-icon or">?</div>
+                        <div class="ch-title">About this estimate</div>
+                    </div>
+                </div>
+                <div style="font-size:.72rem;color:var(--tx2);line-height:1.85">
+                    Tracked by the server - accurate even after page refresh.<br>
+                    Records 1 minute of uptime every 60 seconds while the server is running.<br><br>
+                    <span style="color:var(--tx)">Your ThinkPad i5-6300U at idle: 6-8W</span><br>
+                    <span style="color:var(--tx)">With Jellyfin streaming: 8-12W</span><br>
+                    <span style="color:var(--tx)">Heavy load: up to 25W</span><br><br>
+                    At Rs 8/kWh and 8W average: <span style="color:var(--yl);font-weight:600">Rs ~46/month</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

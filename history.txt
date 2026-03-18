@@ -1,0 +1,1000 @@
+  963  ls
+  964  mv * /mnt/exstore/TVShows/
+  965  ls
+  966  cd ..
+  967  /#
+  968  ls
+  969  cd Korean/
+  970  ls
+  971  cd ONGOING/
+  972  mv * /mnt/exstore/TVShows/
+  973  cd ../COMPLETED/
+  974  mv * /mnt/exstore/TVShows/
+  975  cd /mnt
+  976  cd exstore/
+  977  ls
+  978  cd TVShows/
+  979  ls
+  980  cd /home
+  981  ls
+  982  cd am
+  983  cd amit/
+  984  ls
+  985  cd Downloads/
+  986  vi rmplex.sh
+  987  chmod +x rmplex.sh 
+  988  ./rmplex.sh 
+  989  vi smb.sh
+  990  chmod +x smb.sh 
+  991  ./smb.sh 
+  992  seedbox
+  993  sudo systemctl status smd
+  994  sudo systemctl status smbd
+  995  sudo systemctl restart smbd
+  996  seedbox
+  997  ls
+  998  cd Documents/
+  999  ls
+ 1000  vi bootstr.sh
+ 1001  chmod +x bootstr.sh 
+ 1002  ./bootstr.sh 
+ 1003  sudo reboot
+ 1004  sudo systemctl status smbd
+ 1005  cd /mnt
+ 1006  ls
+ 1007  cd exstore
+ 1008  ls
+ 1009  cd TVShows/
+ 1010  ls
+ 1011  sudo systemctl restart smbd
+ 1012  ifconfig
+ 1013  exit
+ 1014  ip addr show enp0s31f6
+ 1015  sudo nano /etc/samba/smb.conf
+ 1016  sudo systemctl restart smbd
+ 1017  sudo systemctl status smbd
+ 1018  sudo dhclient enp0s31f6
+ 1019  ip addr show enp0s31f6
+ 1020  cd /home
+ 1021  ls
+ 1022  cd amit
+ 1023  cd seedbox
+ 1024  vi jelly.sh
+ 1025  chmod +x *.sh
+ 1026  sudo systemctl stop smbd
+ 1027  ./jelly.sh 
+ 1028  cd /mnt/exstore
+ 1029  ls
+ 1030  cd ~/seedbox
+ 1031  vi jelly.sh 
+ 1032  nano jelly.sh 
+ 1033  ./jelly.sh 
+ 1034  rm -rf jelly.sh 
+ 1035  nano jelly.sh
+ 1036  chmod +x *.sh
+ 1037  ./jelly.sh 
+ 1038  resolvectl status | grep "DNS Servers"
+ 1039  ip route get 8.8.8.8
+ 1040  ping -c 2 google.com
+ 1041  sudo systemctl restart NetworkManager
+ 1042  sleep 3
+ 1043  ping -c 2 google.com
+ 1044  echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+ 1045  echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
+ 1046  ping -c 2 google.com
+ 1047  ip route show
+ 1048  # Delete the wrong gateway
+ 1049  sudo ip route del default via 192.168.10.1 dev enp0s31f6 2>/dev/null || true
+ 1050  # Add the correct gateway (your router)
+ 1051  sudo ip route add default via 192.168.0.1 dev enp0s31f6
+ 1052  # Test immediately
+ 1053  ping -c 2 8.8.8.8
+ 1054  ./jelly.sh 
+ 1055  rm -rf jelly.sh 
+ 1056  nano jelly.sh
+ 1057  chmod +x *.sh
+ 1058  ./jelly.sh 
+ 1059  sudo rm /etc/apt/sources.list.d/jellyfin.list
+ 1060  sudo rm /etc/apt/sources.list.d/jellyfin*.list
+ 1061  sudo mkdir -p /etc/apt/keyrings
+ 1062  curl -fsSL https://repo.jellyfin.org/jellyfin_team.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/jellyfin.gpg
+ 1063  echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/jellyfin.gpg] https://repo.jellyfin.org/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/jellyfin.list
+ 1064  sudo apt update
+ 1065  sudo apt install jellyfin -y
+ 1066  sudo rm /etc/apt/sources.list.d/jellyfin.list
+ 1067  sudo rm -f /etc/apt/keyrings/jellyfin.gpg
+ 1068  sudo apt update
+ 1069  curl https://repo.jellyfin.org/install-debuntu.sh | sudo bash
+ 1070  mkdir -p ~/jellyfin/config
+ 1071  mkdir -p ~/jellyfin/cache
+ 1072  docker run -d --name jellyfin --restart unless-stopped --network host --volume ~/jellyfin/config:/config --volume ~/jellyfin/cache:/cache --volume /mnt/exstore/TVShows:/media/tv --device /dev/dri:/dev/dri jellyfin/jellyfin
+ 1073  /mnt/exstore
+ 1074  cd /mnt/exstore
+ 1075  ls
+ 1076  cd TVS
+ 1077  cd TVShows/
+ 1078  ls
+ 1079  docker pull jellyfin/jellyfin
+ 1080  docker stop jellyfin
+ 1081  docker rm jellyfin
+ 1082  docker stop jellyfin
+ 1083  docker rm jellyfin
+ 1084  docker run -d --name jellyfin --restart unless-stopped --network host -v ~/jellyfin/config:/config -v ~/jellyfin/cache:/cache -v /mnt/exstore:/mnt/exstore --device /dev/dri:/dev/dri jellyfin/jellyfin
+ 1085  cat ~/seedbox/docker-compose.yml
+ 1086  cd ~/seedboz
+ 1087  cd ~/seedbox
+ 1088  rm -rf docker-compose.yml 
+ 1089  nano docker-compose.yml
+ 1090  cat ~/seedbox/docker-compose.yml
+ 1091  sudo docker stop jellyfin
+ 1092  sudo docker rm jellyfin
+ 1093  cd ~/seedbox
+ 1094  sudo docker-compose up -d
+ 1095  exit
+ 1096  ls
+ 1097  cd ~/seedbox
+ 1098  nano docker-compose.yml 
+ 1099  mkdir -p ~/filebrowser
+ 1100  echo '{"port": 8097, "baseURL": "", "address": "", "log": "stdout", "database": "/database.db", "root": "/srv"}' > ~/filebrowser/settings.json
+ 1101  touch ~/filebrowser/filebrowser.db
+ 1102  cd ~/seedbox
+ 1103  sudo docker-compose up -d ttyd filebrowser
+ 1104  sudo ufw allow 7681/tcp
+ 1105  sudo ufw allow 8097/tcp
+ 1106  sudo docker ps | grep -E "ttyd|filebrowser"
+ 1107  sudo docker logs ttyd --tail 20
+ 1108  sudo docker logs filebrowser --tail 20
+ 1109  nano docker-compose.yml 
+ 1110  rm -f ~/filebrowser/filebrowser.db
+ 1111  touch ~/filebrowser/filebrowser.db
+ 1112  cd ~/seedbox
+ 1113  sudo docker-compose up -d --force-recreate ttyd filebrowser
+ 1114  sleep 5
+ 1115  sudo docker ps | grep -E "ttyd|filebrowser"
+ 1116  sudo docker stop ttyd && sudo docker rm ttyd
+ 1117  sudo docker run -d   --name ttyd   --restart unless-stopped   -p 7681:7681   tsl0922/ttyd   ttyd -p 7681 -W /usr/bin/bash
+ 1118  sudo docker stop filebrowser && sudo docker rm filebrowser
+ 1119  sudo docker run -d   --name filebrowser   --restart unless-stopped   -p 8097:8080   -v /mnt/exstore:/srv   -v /home/amit/filebrowser/filebrowser.db:/database.db   -e FB_DATABASE=/database.db   filebrowser/filebrowser
+ 1120  sudo docker stop ttyd filebrowser
+ 1121  sudo docker rm ttyd filebrowser
+ 1122  sudo docker run -d   --name wetty   --restart unless-stopped   -p 7681:3000   wettyoss/wetty   --ssh-host 192.168.0.108   --ssh-port 22   --ssh-user amit   --base /
+ 1123  sudo docker run -d   --name filebrowser   --restart unless-stopped   -p 8097:80   -v /mnt/exstore:/srv   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   --database /database.db   --root /srv   --port 80
+ 1124  sudo docker stop wetty && sudo docker rm wetty
+ 1125  sudo docker run -d   --name wetty   --restart unless-stopped   -p 7681:3000   wettyoss/wetty   --ssh-host 192.168.0.108   --ssh-port 22   --ssh-user amit   --base /wetty   --port 3000
+ 1126  sudo docker stop wetty && sudo docker rm wetty
+ 1127  sudo docker run -d   --name wetty   --restart unless-stopped   -p 7681:3000   wettyoss/wetty   --ssh-host 192.168.0.108   --ssh-port 22   --ssh-user amit   --base /wetty   --port 3000
+ 1128  sudo docker stop filebrowser && sudo docker rm filebrowser
+ 1129  rm -f ~/filebrowser/filebrowser.db
+ 1130  sudo docker run -d   --name filebrowser   --restart unless-stopped   -p 8097:80   -v /mnt/exstore:/srv   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   --database /database.db   --root /srv   --port 80   --username admin   --password admin
+ 1131  sudo docker stop wetty && sudo docker rm wetty
+ 1132  sudo docker run -d   --name wetty   --restart unless-stopped   --network host   wettyoss/wetty   --ssh-host 127.0.0.1   --ssh-port 22   --ssh-user amit   --port 7681   --base /
+ 1133  sudo docker logs wetty --tail 30
+ 1134  sudo docker logs wetty --tail 5
+ 1135  sudo docker stop wetty && sudo docker rm wetty
+ 1136  sudo docker run -d   --name wetty   --restart unless-stopped   --network host   wettyoss/wetty   --ssh-host 192.168.0.108   --ssh-port 22   --ssh-user amit   --port 7681   --base /
+ 1137  sudo docker stop filebrowser && sudo docker rm filebrowser
+ 1138  sudo docker logs filebrowser 2>&1 | tail -5
+ 1139  # Check if port 8097 is already in use
+ 1140  sudo ss -tlnp | grep 8097
+ 1141  # Recreate cleanly
+ 1142  rm -f ~/filebrowser/filebrowser.db
+ 1143  touch ~/filebrowser/filebrowser.db
+ 1144  sudo docker run -d   --name filebrowser   --restart unless-stopped   --network host   -v /mnt/exstore:/srv   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   --database /database.db   --root /srv   --address 0.0.0.0   --port 8097
+ 1145  sudo docker stop filebrowser && sudo docker rm filebrowser
+ 1146  sudo docker logs filebrowser 2>&1 | tail -5
+ 1147  # Check if port 8097 is already in use
+ 1148  sudo ss -tlnp | grep 8097
+ 1149  # Recreate cleanly
+ 1150  rm -f ~/filebrowser/filebrowser.db
+ 1151  touch ~/filebrowser/filebrowser.db
+ 1152  rm -f ~/filebrowser/filebrowser.db
+ 1153  rm -rf ~/filebrowser/filebrowser.db
+ 1154  touch ~/filebrowser/filebrowser.db
+ 1155  sudo docker run -d   --name filebrowser   --restart unless-stopped   --network host   -v /mnt/exstore:/srv   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   --database /database.db   --root /srv   --address 0.0.0.0   --port 8097
+ 1156  sudo docker stop filebrowser && sudo docker rm filebrowser
+ 1157  rm -f ~/filebrowser/filebrowser.db
+ 1158  sudo docker run --rm   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   config init --database /database.db
+ 1159  sudo docker run --rm   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   users add admin admin --perm.admin --database /database.db
+ 1160  sudo docker stop filebrowser && sudo docker rm filebrowser
+ 1161  rm -rf ~/filebrowser/filebrowser.db
+ 1162  touch ~/filebrowser/filebrowser.db
+ 1163  ls -la ~/filebrowser/filebrowser.db
+ 1164  sudo docker run --rm   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   config init --database /database.db
+ 1165  sudo docker run --rm   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   users add admin admin --perm.admin --database /database.db
+ 1166  sudo docker run --rm   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   users add admin admin123456789 --perm.admin --database /database.db
+ 1167  sudo docker run -d   --name filebrowser   --restart unless-stopped   --network host   -v /mnt/exstore:/srv   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   --database /database.db   --root /srv   --address 0.0.0.0   --port 8097
+ 1168  seedbox
+ 1169  ls
+ 1170  cd ~/seedbox
+ 1171  ls
+ 1172  mv manage.sh manage_v7.sh
+ 1173  cp ~/Downloads/manage.sh ~/seedbox/manage.sh
+ 1174  chmod +x ~/seedbox/manage.sh
+ 1175  cd ~
+ 1176  unzip -o ~/Downloads/seedbox-web-v5.zip
+ 1177  cp ~/seedbox-web3/app.py ~/seedbox-web/app.py
+ 1178  cp ~/seedbox-web3/templates/index.html ~/seedbox-web/templates/index.html
+ 1179  sudo systemctl restart seedbox-web
+ 1180  seedbox
+ 1181  docker ps -a | grep filebrowser
+ 1182  docker rm -f d50db2051434
+ 1183  seedbox
+ 1184  ps
+ 1185  ps surfshark
+ 1186  systemctl status surfshark
+ 1187  ps -a
+ 1188  ps aux
+ 1189  htop
+ 1190  sudo apt install xrdp -y
+ 1191  sudo systemctl enable xrdp
+ 1192  sudo systemctl start xrdp
+ 1193  sudo systemctl status xrdp
+ 1194  sudo ufw allow ssh
+ 1195  sudo ufw allow 3389
+ 1196  sudo apt update
+ 1197  sudo apt install ubuntu-desktop gnome-session gnome-terminal -y
+ 1198  echo "gnome-session" > ~/.xsession
+ 1199  chmod +x ~/.xsession
+ 1200  sudo adduser $USER ssl-cert
+ 1201  sudo systemctl restart xrdp
+ 1202  systemctl daemon-reload'
+ 1203  systemctl daemon-reload
+ 1204  sudo systemctl restart xrdp
+ 1205  sudo nano /etc/xrdp/startwm.sh
+ 1206  sudo systemctl restart xrdp
+ 1207  cat ~/.xsession-errors
+ 1208  sudo apt install xfce4 xfce4-goodies -y
+ 1209  echo xfce4-session > ~/.xsession
+ 1210  sudo systemctl restart xrdp
+ 1211  echo xfce4-session > ~/.xsession
+ 1212  sudo systemctl restart xrdp
+ 1213  cat ~/.xsession-errors
+ 1214  sudo nano /etc/gdm3/custom.conf
+ 1215  sudo systemctl restart gdm3
+ 1216  echo startxfce4 > ~/.xsession
+ 1217  chmod +x ~/.xsession
+ 1218  sudo systemctl restart xrdp
+ 1219  cat ~/.xsession-errors
+ 1220  sudo systemctl stop xrdp
+ 1221  sudo systemctl disable xrdp
+ 1222  sudo apt purge xrdp -y
+ 1223  sudo apt autoremove --purge -y
+ 1224  sudo rm -rf /etc/xrdp
+ 1225  sudo rm -rf /var/log/xrdp*
+ 1226  rm -f ~/.xsession
+ 1227  rm -f ~/.xsession-errors
+ 1228  sudo systemctl restart gdm3
+ 1229  dpkg -l | grep xrdp
+ 1230  sudo apt purge xorgxrdp -y
+ 1231  dpkg -l | grep xrdp
+ 1232  echo $DISPLAY
+ 1233  sudo apt update
+ 1234  sudo apt install gnome-remote-desktop -y
+ 1235  systemctl --user enable gnome-remote-desktop
+ 1236  systemctl --user start gnome-remote-desktop
+ 1237  gsettings set org.gnome.desktop.remote-desktop.vnc view-only false
+ 1238  gsettings set org.gnome.desktop.remote-desktop.vnc password $(echo -n 'AT1234' | base64)
+ 1239  grdctl vnc set-password
+ 1240  sudo apt update
+ 1241  sudo apt install x11vnc -y
+ 1242  x11vnc -storepasswd
+ 1243  x11vnc -display :0 -auth guess -forever -loop -noxdamage -repeat -rfbauth ~/.vnc/passwd -rfbport 5900 -shared
+ 1244  sudo systemctl stop x11vnc
+ 1245  systemctl --user stop gnome-remote-desktop
+ 1246  sudo systemctl stop x11vnc
+ 1247  systemctl --user stop gnome-remote-desktop
+ 1248  sudo systemctl disable x11vnc
+ 1249  systemctl --user disable gnome-remote-desktop
+ 1250  sudo apt purge x11vnc gnome-remote-desktop -y
+ 1251  sudo apt autoremove --purge -y
+ 1252  rm -rf ~/.vnc
+ 1253  sudo rm -f /etc/systemd/system/x11vnc.service
+ 1254  sudo systemctl daemon-reload.
+ 1255  systemctl daemon-reload.
+ 1256  sudo systemctl daemon-reload
+ 1257  rm -rf ~/.config/gnome-remote-desktop
+ 1258  clear
+ 1259  yt-dlp
+ 1260  cd /mnt/exstore/TVShows/
+ 1261  cd Chinese/
+ 1262  ls
+ 1263  cd Pursuit\ of\ Jade/
+ 1264  ls
+ 1265  sudo apt install yt-dlp -y
+ 1266  yt-dlp "https://pixeldrain.com/u/mVUNzRNC"
+ 1267  ls
+ 1268  mv mVUNzRNC\ \[mVUNzRNC\].mkv Pursuit.of.Jade.S01E07.1080p.NF.WEB-DL.DDP5.1.H.264-Marco.mkv 
+ 1269  ls
+ 1270  sudo apt install aria2 -y
+ 1271  yt-dlp --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -k 1M" "https://gofile.io/d/YcifiJ”
+ 1272  yt-dlp --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -k 1M" "https://gofile.io/d/YcifiJ"
+ 1273  yt-dlp --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -k 1M" "https://send.now/gxl5hl9f0ajk"
+ 1274  yt-dlp --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -k 1M" "https://pixeldrain.com/u/4pUKPMXj"
+ 1275  ls
+ 1276  cd /home/amit
+ 1277  ls
+ 1278  pwd
+ 1279  vi download.sh
+ 1280  chmod +x download.sh 
+ 1281  nano ~/.bashrc
+ 1282  source ~/.bashrc
+ 1283  cd -
+ 1284  nano ~/.bashrc
+ 1285  source ~/.bashrc
+ 1286  exs
+ 1287  nano ~/.bashrc
+ 1288  source ~/.bashrc
+ 1289  exs
+ 1290  cd Chinese/Pursuit\ of\ Jade/
+ 1291  download
+ 1292  cp ~/Downloads/app.py ~/seedbox-web/app.py
+ 1293  cp ~/Downloads/index.html ~/seedbox-web/templates/index.html
+ 1294  cp ~/Downloads/download.sh ~/download.sh
+ 1295  cp ~/Downloads/index.html ~/seedbox-web/templates/index.html
+ 1296  cp ~/Downloads/app.py ~/seedbox-web/app.py
+ 1297  chmod +x ~/download.sh
+ 1298  sudo apt install aria2 wget curl ffmpeg -y
+ 1299  sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp   -o /usr/local/bin/yt-dlp && sudo chmod +x /usr/local/bin/yt-dlp
+ 1300  sudo systemctl restart seedbox-web
+ 1301  cp ~/Downloads/download.sh ~/download.sh && chmod +x ~/download.sh
+ 1302  cp ~/Downloads/app.py ~/seedbox-web/app.py
+ 1303  cp ~/Downloads/index.html ~/seedbox-web/templates/index.html
+ 1304  sudo systemctl restart seedbox-web
+ 1305  cd /home/amit
+ 1306  ls
+ 1307  cd Downloads/
+ 1308  curl -s -I -L "https://gofile.io/d/jhylmr" | grep -i location
+ 1309  # Try wget with content disposition
+ 1310  wget --content-disposition "https://gofile.io/d/jhylmr"
+ 1311  # Use curl with browser headers
+ 1312  curl -L -O -J   -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"   -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"   "https://gofile.io/d/jhylmr"
+ 1313  # Download the page and grep for file links
+ 1314  curl -s -L "https://gofile.io/d/jhylmr" | grep -oE 'https?://[^"'"'"' >]+\.(mp4|mkv|zip|pdf|mp3)' | head -5
+ 1315  # First, get the content ID from the URL (jhylmr)
+ 1316  FILE_ID="jhylmr"
+ 1317  # Get file info from Gofile API
+ 1318  curl -s "https://api.gofile.io/getContent?contentId=$FILE_ID&websiteToken=12345" | jq .
+ 1319  # If that works, get download link (you'll need to parse the JSON)
+ 1320  curl -s "https://api.gofile.io/getContent?contentId=jhylmr&websiteToken=12345" | jq
+ 1321  cat > gofile_download.py << 'EOF'
+ 1322  import requests
+ 1323  import re
+ 1324  import sys
+ 1325  import json
+ 1326  def get_gofile_download(url):
+ 1327      # Extract file ID
+ 1328      file_id = url.split('/')[-1]
+ 1329      
+ 1330      # Try API endpoint
+ 1331      headers = {
+ 1332          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+ 1333          'Accept': 'application/json, text/plain, */*',
+ 1334          'Origin': 'https://gofile.io',
+ 1335          'Referer': 'https://gofile.io/'
+ 1336      }
+ 1337      
+ 1338      # Method 1: API v2
+ 1339      try:
+ 1340          api_url = f"https://api.gofile.io/getContent?contentId={file_id}&token=null&websiteToken=12345"
+ 1341          response = requests.get(api_url, headers=headers, timeout=10)
+ 1342          data = response.json()
+ 1343          print(f"API Response: {json.dumps(data, indent=2)}")
+ 1344          
+ 1345          if data.get('status') == 'ok':
+ 1346              contents = data['data']['contents']
+ 1347              for file_id, file_info in contents.items():
+ 1348                  if file_info.get('link'):
+ 1349                      print(f"Download link: {file_info['link']}")
+ 1350                      return file_info['link']
+ 1351      except Exception as e:
+ 1352          print(f"API method failed: {e}")
+ 1353      
+ 1354      # Method 2: Scrape the page
+ 1355      try:
+ 1356          page = requests.get(url, headers=headers, timeout=10)
+ 1357          # Look for download links in JavaScript
+ 1358          matches = re.findall(r'https://[^"\']+\.gofile\.io/download/[^"\']+', page.text)
+ 1359          if matches:
+ 1360              print(f"Found download link: {matches[0]}")
+ 1361              return matches[0]
+ 1362      except Exception as e:
+ 1363          print(f"Scraping failed: {e}")
+ 1364      
+ 1365      return None
+ 1366  def download_file(download_url, output_filename=None):
+ 1367      if not download_url:
+ 1368          print("No download URL found")
+ 1369          return False
+ 1370      
+ 1371      headers = {
+ 1372          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+ 1373      }
+ 1374      
+ 1375      print(f"Downloading from: {download_url}")
+ 1376      response = requests.get(download_url, headers=headers, stream=True, timeout=30)
+ 1377      
+ 1378      if response.status_code == 200:
+ 1379          if not output_filename:
+ 1380              # Try to get filename from Content-Disposition
+ 1381              cd = response.headers.get('content-disposition')
+ 1382              if cd:
+ 1383                  filename = re.findall('filename="(.+)"', cd)
+ 1384                  if filename:
+ 1385                      output_filename = filename[0]
+ 1386                  else:
+ 1387                      output_filename = 'download_' + download_url.split('/')[-1]
+ 1388              else:
+ 1389                  output_filename = 'download_' + download_url.split('/')[-1]
+ 1390          
+ 1391          total_size = int(response.headers.get('content-length', 0))
+ 1392          block_size = 8192
+ 1393          
+ 1394          with open(output_filename, 'wb') as f:
+ 1395              downloaded = 0
+ 1396              for chunk in response.iter_content(chunk_size=block_size):
+ 1397                  if chunk:
+ 1398                      f.write(chunk)
+ 1399                      downloaded += len(chunk)
+ 1400                      if total_size > 0:
+ 1401                          percent = (downloaded / total_size) * 100
+ 1402                          sys.stdout.write(f"\rDownloading: {percent:.1f}% ({downloaded}/{total_size} bytes)")
+ 1403                          sys.stdout.flush()
+ 1404          
+ 1405          print(f"\n✅ Downloaded to: {output_filename}")
+ 1406          return True
+ 1407      else:
+ 1408          print(f"Download failed: HTTP {response.status_code}")
+ 1409          return False
+ 1410  if __name__ == "__main__":
+ 1411      url = "https://gofile.io/d/jhylmr"
+ 1412      if len(sys.argv) > 1:
+ 1413          url = sys.argv[1]
+ 1414      
+ 1415      print(f"Processing: {url}")
+ 1416      download_url = get_gofile_download(url)
+ 1417      
+ 1418      if download_url:
+ 1419          download_file(download_url)
+ 1420      else:
+ 1421          print("❌ Could not find download link")
+ 1422  EOF
+ 1423  # Install required Python module
+ 1424  pip3 install requests
+ 1425  # Run the script
+ 1426  python3 gofile_download.py https://gofile.io/d/jhylmr
+ 1427  # First, get a session cookie by visiting the site in browser
+ 1428  # Then use that cookie with wget
+ 1429  # Example (replace with actual cookie)
+ 1430  wget --load-cookies /tmp/cookies.txt      --keep-session-cookies      --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"      "https://gofile.io/d/jhylmr"
+ 1431  # Install Puppeteer or Playwright
+ 1432  sudo npm install -g puppeteer
+ 1433  # Create a Node.js script
+ 1434  cat > gofile_dl.js << 'EOF'
+ 1435  const puppeteer = require('puppeteer');
+ 1436  async function downloadFromGofile(url) {
+ 1437      const browser = await puppeteer.launch({ headless: false });
+ 1438      const page = await browser.newPage();
+ 1439      
+ 1440      try {
+ 1441          await page.goto(url, { waitUntil: 'networkidle2' });
+ 1442          
+ 1443          // Wait for download button and get link
+ 1444          const downloadLink = await page.evaluate(() => {
+ 1445              const link = document.querySelector('a[href*="download"]');
+ 1446              return link ? link.href : null;
+ 1447          });
+ 1448          
+ 1449          console.log('Download link:', downloadLink);
+ 1450          
+ 1451          // If you want to actually download
+ 1452          if (downloadLink) {
+ 1453              const response = await page.goto(downloadLink);
+ 1454              // Handle download...
+ 1455          }
+ 1456          
+ 1457      } catch (error) {
+ 1458          console.error('Error:', error);
+ 1459      } finally {
+ 1460          await browser.close();
+ 1461      }
+ 1462  }
+ 1463  downloadFromGofile('https://gofile.io/d/jhylmr');
+ 1464  EOF
+ 1465  # Run with Node.js (requires Node installed)
+ 1466  node gofile_dl.js
+ 1467  # Install uGet (GUI download manager)
+ 1468  sudo apt install -y uget
+ 1469  # Or try using xtreme-download-manager
+ 1470  wget https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup-7.2.11.tar.xz
+ 1471  tar -xf xdm-setup-7.2.11.tar.xz
+ 1472  sudo ./install.sh
+ 1473  # Install latest yt-dlp
+ 1474  sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
+ 1475  sudo chmod +x /usr/local/bin/yt-dlp
+ 1476  # Try with generic extractor and verbose output
+ 1477  yt-dlp -v --force-generic-extractor "https://gofile.io/d/jhylmr"
+ 1478  # If that fails, try with cookies from browser (if you have browser cookies)
+ 1479  # First, export cookies using a browser extension to cookies.txt
+ 1480  yt-dlp --cookies cookies.txt "https://gofile.io/d/jhylmr"
+ 1481  exs
+ 1482  ps
+ 1483  ls
+ 1484  cd Chinese/Pursuit\ of\ Jade/
+ 1485  ls
+ 1486  mv 1xBRVpKy\ \[1xBRVpKy\].mkv Pursuit.of.Jade.S01E10.1080p.NF.WEB-DL.DDP5.1.H.264-Marco.mkv 
+ 1487  mv FWw1mHzM\ \[FWw1mHzM\].mkv Pursuit.of.Jade.S01E09.1080p.NF.WEB-DL.DDP5.1.H.264-Marco.mkv 
+ 1488  ls
+ 1489  exs
+ 1490  pip install gofile-downloader
+ 1491  pip3 install gofile-downloader
+ 1492  sudo apt install pipx -y
+ 1493  pipx ensurepath
+ 1494  source ~/.bashrc
+ 1495  pipx install gofile-downloader
+ 1496  curl -s https://api.gofile.io/contents/Us25vK | jq -r '.data.children[].link' | aria2c -x16 -s16 -k1M
+ 1497  curl -s https://api.gofile.io/contents/Us25vK | jq -r '.data.children[].link' | while read url; do     aria2c -x16 -s16 -k1M "$url"; done
+ 1498  nano ~/gofile.sh
+ 1499  chmod +x ~/gofile.sh
+ 1500  ~/gofile.sh https://gofile.io/d/Us25vK
+ 1501  nano ~/gofile.sh
+ 1502  ~/gofile.sh https://gofile.io/d/Us25vK
+ 1503  ifconfig
+ 1504  systemctl status ssh
+ 1505  systemctl restart ssh
+ 1506  history
+ 1507  sudo systemctl restart seedbox-web
+ 1508  cd ~/seeebox
+ 1509  cd ~/seedbox
+ 1510  la
+ 1511  cd config/
+ 1512  ls
+ 1513  cd ..
+ 1514  cat docker-compose.yml 
+ 1515  cd /
+ 1516  ps
+ 1517  ls
+ 1518  grep "database
+ 1519  grep "database" history
+ 1520  history > hs.txt
+ 1521  exs
+ 1522  history > hs.txt
+ 1523  grep "database.db" hs.txt 
+ 1524  sudo docker run --rm   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   users add admin admin123456789 --perm.admin --database /database.db
+ 1525  sudo docker run -d   --name filebrowser   --restart unless-stopped   --network host   -v /mnt/exstore:/srv   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   --database /database.db   --root /srv   --address 0.0.0.0   --port 8097
+ 1526  ps
+ 1527  grep "kill" hs.txt 
+ 1528  grep "filebrowser" hs.txt 
+ 1529  docker ps -a | grep filebrowser
+ 1530  grep 1182 hs.txt 
+ 1531  docker rm -f 4bbdc989f872
+ 1532  grep 1183 hs.txt 
+ 1533  grep 1184 hs.txt 
+ 1534  grep 1185 hs.txt 
+ 1535  sudo docker run -d   --name filebrowser   --restart unless-stopped   --network host   -v /mnt/exstore:/srv   -v /home/amit/filebrowser/filebrowser.db:/database.db   filebrowser/filebrowser   --database /database.db   --root /srv   --address 0.0.0.0   --port 8097
+ 1536  ls
+ 1537  rm -rf *.zip
+ 1538  ls
+ 1539  exs
+ 1540  history > history_1606.txt
+ 1541  cd /
+ 1542  ls
+ 1543  cd /hom4
+ 1544  cd /home
+ 1545  ls
+ 1546  cd ami5
+ 1547  cd amit
+ 1548  ls
+ 1549  cd seedbox-web
+ 1550  ls
+ 1551  rm -rf app.py 
+ 1552  nano app.py
+ 1553  sudo systemctl restart seedbox-web
+ 1554  cd ..
+ 1555  ls
+ 1556  cd seedbox-web2
+ 1557  ls
+ 1558  rm -rf app.py 
+ 1559  nano app.py
+ 1560  sudo systemctl restart seedbox-web
+ 1561  cat seedbox-web2.service
+ 1562  sudo systemctl status seedbox-web
+ 1563  ls
+ 1564  cat /etc/systemd/system/seedbox-web.service
+ 1565  sudo systemctl restart seedbox-web
+ 1566  sudo systemctl status seedbox-web
+ 1567  sudo journalctl -u seedbox-web -n 30 --no-pager
+ 1568  sudo systemctl stop seedbox-web
+ 1569  python3 -c "
+ 1570  data = open('/home/amit/seedbox-web/app.py', 'rb').read()
+ 1571  data = data.replace(b'\x97', b'-').replace(b'\x96', b'-').replace(b'\x93', b'\"').replace(b'\x94', b'\"')
+ 1572  open('/home/amit/seedbox-web/app.py', 'wb').write(data)
+ 1573  print('Fixed, bytes:', len(data))
+ 1574  "
+ 1575  python3 -m py_compile /home/amit/seedbox-web/app.py && echo "VALID"
+ 1576  python3 -c "
+ 1577  data = open('/home/amit/seedbox-web/app.py', 'rb').read()
+ 1578  data = data.replace(b'\x97', b'-')
+ 1579  data = data.replace(b'\x96', b'-')
+ 1580  data = data.replace(b'\x93', b'\"')
+ 1581  data = data.replace(b'\x94', b'\"')
+ 1582  data = data.replace(b'\xb0', b'')   # corrupted degree symbol
+ 1583  data = data.replace(b'\xc2', b'')   # UTF-8 prefix byte that sometimes accompanies it
+ 1584  open('/home/amit/seedbox-web/app.py', 'wb').write(data)
+ 1585  print('Fixed')
+ 1586  "
+ 1587  python3 -m py_compile /home/amit/seedbox-web/app.py && echo "VALID"
+ 1588  python3 -c "
+ 1589  data = open('/home/amit/seedbox-web/app.py', 'rb').read()
+ 1590  clean = data.decode('utf-8', errors='ignore').encode('utf-8')
+ 1591  open('/home/amit/seedbox-web/app.py', 'wb').write(clean)
+ 1592  print('Fixed, bytes:', len(clean))
+ 1593  "
+ 1594  python3 -m py_compile /home/amit/seedbox-web/app.py && echo "VALID"
+ 1595  # Download directly from this conversation's output would be cleanest
+ 1596  # Or just strip all non-ASCII from the file entirely:
+ 1597  python3 -c "
+ 1598  import re
+ 1599  data = open('/home/amit/seedbox-web/app.py', 'rb').read()
+ 1600  # Replace all non-UTF8 bytes
+ 1601  clean = data.decode('utf-8', errors='ignore')
+ 1602  open('/home/amit/seedbox-web/app.py', 'w', encoding='utf-8') .write(clean)
+ 1603  print('Done')
+ 1604  "
+ 1605  python3 -m py_compile /home/amit/seedbox-web/app.py && echo "VALID"
+ 1606  sudo systemctl start seedbox-web
+ 1607  sudo systemctl status seedbox-web
+ 1608  python3 -c "
+ 1609  for f in ['/home/amit/seedbox-web/templates/index.html', '/home/amit/seedbox-web/app.py']:
+ 1610      data = open(f, 'rb').read()
+ 1611      clean = data.decode('utf-8', errors='ignore')
+ 1612      open(f, 'w', encoding='utf-8').write(clean)
+ 1613      print(f'Fixed: {f}')
+ 1614  "
+ 1615  sudo systemctl restart seedbox-web
+ 1616  sudo systemctl status seedbox-web
+ 1617  mkdir -p ~/.ssh
+ 1618  chmod 700 ~/.ssh
+ 1619  nano ~/.ssh/authorized_keys.
+ 1620  chmod 600 ~/.ssh/authorized_keys
+ 1621  cat ~/.ssh/authorized_keys
+ 1622  vi ~/.ssh/authorized_keys
+ 1623  sudo systemctl restart seedbox-web
+ 1624  sudo systemctl status seedbox-web
+ 1625  sudo systemctl restart seedbox-web
+ 1626  sudo systemctl status seedbox-web
+ 1627  sudo apt update
+ 1628  sudo apt install curl -y
+ 1629  ping google.com
+ 1630  ls
+ 1631  pwd
+ 1632  cd Downloads/
+ 1633  ls
+ 1634  history > history_Mar16.txt
+ 1635  ping -c 2 8.8.8.8
+ 1636  echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+ 1637  echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
+ 1638  ping -c 2 google.com
+ 1639  sudo systemctl restart NetworkManager
+ 1640  ping -c 2 google.com
+ 1641  ip a
+ 1642  sudo ip route add default via 192.168.0.1
+ 1643  ping -c 2 google.com
+ 1644  sudo apt update
+ 1645  sudo apt install curl -y
+ 1646  sudo apt install glances -y
+ 1647  wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh
+ 1648  sudo bash /tmp/netdata-kickstart.sh --dont-wait --no-updates --stable-channel
+ 1649  ping google.com
+ 1650  sudo ip route add default via 192.168.0.1
+ 1651  ping google.com
+ 1652  [200~wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh
+ 1653  wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh
+ 1654  sudo bash /tmp/netdata-kickstart.sh --dont-wait --no-updates --stable-channel
+ 1655  sudo systemctl enable netdata
+ 1656  sudo systemctl start netdata
+ 1657  sudo systemctl status netdata
+ 1658  sudo nano /etc/netdata/netdata.conf
+ 1659  y
+ 1660  sudo cat /var/lib/netdata/netdata_random_session_id
+ 1661  sudo nano /etc/netdata/netdata.conf
+ 1662  sudo systemctl restart netdata
+ 1663  cat ~/seedbox/docker-compose.yml
+ 1664  sudo docker-compose pull neko
+ 1665  cd ~/seedbox
+ 1666  sudo docker-compose pull neko
+ 1667  sudo docker-compose up -d neko
+ 1668  sudo docker logs neko --tail 20
+ 1669  sudo ufw allow 8095/tcp
+ 1670  sudo ufw allow 52000:52100/udp
+ 1671  sudo ufw status
+ 1672  sudo ufw allow 8095/tcp
+ 1673  sudo ufw allow 52000:52100/udp
+ 1674  sudo ufw status
+ 1675  sudo docker ps | grep neko
+ 1676  curl -s http://localhost:8095 | head -5
+ 1677  cd ~/seedbox
+ 1678  sudo docker-compose up -d neko
+ 1679  sudo docker-compose down
+ 1680  sudo docker-compose up -d
+ 1681  systemctl status neku
+ 1682  systemctl status neko
+ 1683  curl -s http://localhost:8095 | head -5
+ 1684  curl -s http://192.168.0.108:8095 | head -5
+ 1685  sudo docker ps | grep neko
+ 1686  sudo docker logs neko --tail 30
+ 1687  sudo docker-compose down neko
+ 1688  sudo docker-compose up -d neko
+ 1689  sudo docker-compose down neko
+ 1690  ping -6 google.com
+ 1691  ping -c 2 8.8.8.8
+ 1692  ping -M do -s 1464 google.com
+ 1693  ifconfig
+ 1694  link/ether
+ 1695  ip link
+ 1696  sudo nano /etc/netplan/01-netcfg.yaml
+ 1697  cat /etc/netplan/01-netcfg.yaml
+ 1698  sudo netplan apply
+ 1699  cat /etc/netplan/01-netcfg.yaml
+ 1700  sudo netplan apply
+ 1701  sudo nano /etc/netplan/01-netcfg.yaml
+ 1702  cat /etc/netplan/01-netcfg.yaml
+ 1703  sudo chmod 600 /etc/netplan/01-netcfg.yaml
+ 1704  sudo rm /etc/netplan/90-NM-*.yaml
+ 1705  sudo netplan apply
+ 1706  sudo apt update
+ 1707  sudo apt install nmap
+ 1708  nmap -sn 192.168.1.0/24
+ 1709  sudo nmap -sn 192.168.1.0/24
+ 1710  ifconfig
+ 1711  sudo systemctl restart seedbox-web
+ 1712  sudo visudo
+ 1713  cd ~/seedbox
+ 1714  sudo docker-compose up -d neko
+ 1715  sudo docker ps | grep neko
+ 1716  sudo docker-compose down neko
+ 1717  docker-compose down neko
+ 1718  sudo kill -9 $(sudo cat /proc/$(sudo docker inspect --format '{{.State.Pid}}' neko)/status 2>/dev/null | grep ^Pid | awk '{print $2}')
+ 1719  cat /proc/cpuinfo | grep "model name" | head -1
+ 1720  free -h
+ 1721  df -h
+ 1722  lscpu | grep -E "Model name|Socket|Thread|Core|CPU MHz|CPU max"
+ 1723  sensors 2>/dev/null | head -20
+ 1724  upower -i $(upower -e | grep battery) | grep -E "state|percentage|capacity"
+ 1725  cat /sys/class/power_supply/BAT1/power_now 2>/dev/null
+ 1726  cat /sys/class/power_supply/BAT1/current_now 2>/dev/null
+ 1727  cat /sys/class/power_supply/BAT1/voltage_now 2>/dev/null
+ 1728  # Better method - direct wattage reading
+ 1729  cat /sys/class/power_supply/AC/online 2>/dev/null
+ 1730  upower -i $(upower -e | grep battery) | grep -E "energy-rate|power|voltage"
+ 1731  # ThinkPad specific - most accurate
+ 1732  cat /proc/acpi/battery/BAT0/state 2>/dev/null
+ 1733  sudo tlp-stat -b 2>/dev/null | grep -E "power|watt|rate" | head -10
+ 1734  # Also check via sensors
+ 1735  sensors | grep -i power
+ 1736  clear
+ 1737  cat /sys/class/power_supply/BAT1/power_now 2>/dev/null
+ 1738  cat /sys/class/power_supply/BAT1/current_now 2>/dev/null
+ 1739  cat /sys/class/power_supply/BAT1/voltage_now 2>/dev/null
+ 1740  cat /sys/class/power_supply/AC/online 2>/dev/null
+ 1741  upower -i $(upower -e | grep battery) | grep -E "energy-rate|power|voltage"
+ 1742  cat /proc/acpi/battery/BAT0/state 2>/dev/null
+ 1743  sudo tlp-stat -b 2>/dev/null | grep -E "power|watt|rate" | head -10
+ 1744  sensors | grep -i power
+ 1745  watch -n 2 'upower -i $(upower -e | grep battery) | grep "energy-rate"'
+ 1746  cat /sys/class/power_supply/AC/online 2>/dev/null
+ 1747  upower -i $(upower -e | grep battery) | grep -E "energy-rate|power|voltage"
+ 1748  # ThinkPad specific - most accurate
+ 1749  cat /proc/acpi/battery/BAT0/state 2>/dev/null
+ 1750  sudo tlp-stat -b 2>/dev/null | grep -E "power|watt|rate" | head -10
+ 1751  # Also check via sensors
+ 1752  sensors | grep -i power
+ 1753  ls /dev/dri/
+ 1754  vainfo 2>/dev/null | head -10
+ 1755  sudo docker logs jellyfin 2>&1 | grep -i "hardware\|vaapi\|quicksync\|transcode" | tail -10
+ 1756  grep -A5 "jellyfin" ~/seedbox/docker-compose.yml | grep -A3 "devices"
+ 1757  sudo docker logs jellyfin -f 2>&1 | grep -i "vaapi\|transcode\|hwaccel"
+ 1758  time
+ 1759  date
+ 1760  sudo docker logs jellyfin --tail 20 2>&1 | grep -i "transcode\|vaapi\|hwaccel\|ffmpeg"
+ 1761  vainfo 2>/dev/null | grep -i "hevc\|h265"
+ 1762  sudo docker exec jellyfin ls /config/data/transcodes/ 2>/dev/null
+ 1763  cd ~/seedbox
+ 1764  ls
+ 1765  cd ..
+ 1766  ls
+ 1767  xd seedbox-web
+ 1768  cd seedbox-web
+ 1769  ls
+ 1770  mv app.py app.py_old
+ 1771  nano app.py
+ 1772  ls -lrta
+ 1773  cd templates/
+ 1774  ls
+ 1775  mv index.html index.html_old
+ 1776  nanoindex.html
+ 1777  nano index.html
+ 1778  sudo systemctl restart seedbox-web
+ 1779  ping google.com
+ 1780  cd ..
+ 1781  rm -rf app.py
+ 1782  nano app.py
+ 1783  sudo systemctl restart seedbox-web
+ 1784  rm -rf app.py
+ 1785  nano app.py
+ 1786  sudo systemctl restart seedbox-web
+ 1787  sudo usermod -aG docker amit
+ 1788  echo "amit ALL=(ALL) NOPASSWD: /usr/bin/docker, /usr/local/bin/docker, /usr/bin/docker-compose, /usr/local/bin/docker-compose" | sudo tee /etc/sudoers.d/amit-docker
+ 1789  newgrp docker
+ 1790  cd -
+ 1791  ls
+ 1792  cd seedbox-web
+ 1793  ls
+ 1794  mv app.py app.py_v8
+ 1795  nano app.py
+ 1796  ls
+ 1797  cd templates/
+ 1798  ls
+ 1799  mv index.html index.html_v8
+ 1800  nano index.html
+ 1801  sudo systemctl restart seedbox-web
+ 1802  sudo systemctl status seedbox-web
+ 1803  sudo journalctl -u seedbox-web -n 50 --no-pager
+ 1804  pwd
+ 1805  ls
+ 1806  cd seedbox-web
+ 1807  ls
+ 1808  rm -rf app.py
+ 1809  nano app.py
+ 1810  ls
+ 1811  cd templates/
+ 1812  ls
+ 1813  rm -rf index.html
+ 1814  nano index.html
+ 1815  sudo systemctl restart seedbox-web
+ 1816  cd ..
+ 1817  rm -rf app.py
+ 1818  nano app.py
+ 1819  cd templates/
+ 1820  la
+ 1821  rm -rf index.html
+ 1822  nano index.html
+ 1823  sudo systemctl restart seedbox-web
+ 1824  sudo systemctl status seedbox-web
+ 1825  cd --
+ 1826  ls
+ 1827  cd seedbox-web
+ 1828  rm -rf app.py && nano app.py
+ 1829  cd templates/
+ 1830  ls
+ 1831  sudo systemctl restart seedbox-web
+ 1832  rm -rf index.html && nano index.html
+ 1833  sudo systemctl restart seedbox-web
+ 1834  cd seedbox-web
+ 1835  rm -rf app.py && nano app.py
+ 1836  cd templates/
+ 1837  rm -rf index.html && nano index.html
+ 1838  sudo systemctl restart seedbox-web
+ 1839  cd ..
+ 1840  ls
+ 1841  zip seedbox-web
+ 1842  ls
+ 1843  zip -r seedbox-web.zip seedbox-web/
+ 1844  mv seedbox-web.zip /mnt/exstore/
+ 1845  cp seedbox-web /mnt/exstore/
+ 1846  cp -r seedbox-web /mnt/exstore/
+ 1847  ls
+ 1848  cd seedbox-web
+ 1849  ls
+ 1850  cd templates/
+ 1851  ls
+ 1852  cd seedbox-web
+ 1853  ls
+ 1854  cat requirements.txt 
+ 1855  nano requirements.txt 
+ 1856  cat requirements.txt 
+ 1857  nano config.py
+ 1858  nano system_utils.py
+ 1859  nano electricity.py
+ 1860  nano neko_utils.py
+ 1861  nano download_manager.py
+ 1862  nano file_manager.py
+ 1863  mkdir routes
+ 1864  cd routes/
+ 1865  nano api.py
+ 1866  nano electricity.py
+ 1867  nano downloads.py
+ 1868  nano files.py
+ 1869  cd ..
+ 1870  rm -rf app.py
+ 1871  nano app.py
+ 1872  cd templates/
+ 1873  nano base.html
+ 1874  rm -rf index.html
+ 1875  nano index.html
+ 1876  mkdir components
+ 1877  cd components/
+ 1878  nano nav.html
+ 1879  cd modals
+ 1880  mkdir modals
+ 1881  cd modals/
+ 1882  nano confirm_modal.html
+ 1883  nano output_modal.html
+ 1884  nano rename_modal.hrml
+ 1885  nano rename_modal.html
+ 1886  nano neko_path_modal.html
+ 1887  nano path_modal.html
+ 1888  cd ..
+ 1889  mkdir panels
+ 1890  cd panels/
+ 1891  nano dashboard.html
+ 1892  nano controls.html
+ 1893  nano logs.html
+ 1894  nano terminal
+ 1895  nano terminal.html
+ 1896  rm terminal.html 
+ 1897  nano terminal.html
+ 1898  nano files.html
+ 1899  nano jellyfin.html
+ 1900  nano downloads.html
+ 1901  nano browser.html
+ 1902  nano filemgr.html
+ 1903  nano power.html
+ 1904  nano runner.html
+ 1905  cd seedbox-web
+ 1906  ls
+ 1907  cd seedbox-web
+ 1908  cd templates/
+ 1909  ls
+ 1910  cd components/
+ 1911  lz
+ 1912  ls
+ 1913  cd panels/
+ 1914  ls
+ 1915  cd ..
+ 1916  mkdir static
+ 1917  cd static/
+ 1918  mkdir css
+ 1919  cd css/
+ 1920  nano main.css
+ 1921  nano themes.css
+ 1922  cd ..
+ 1923  mkdir js
+ 1924  cd js
+ 1925  cd utils
+ 1926  mkdir utils
+ 1927  cd utils
+ 1928  nano helpers.js
+ 1929  nano modals.js
+ 1930  cd ..
+ 1931  nano api.js
+ 1932  nano ui
+ 1933  nano ui.js
+ 1934  mkdir panels
+ 1935  cd panels/
+ 1936  nano dashboard.js
+ 1937  nano controls
+ 1938  nano controls.js
+ 1939  nano downloads.js
+ 1940  nano filemgr
+ 1941  nano filemgr.js
+ 1942  nano runner.js
+ 1943  cd ..
+ 1944  nano main.js
+ 1945  sudo systemctl restart seedbox-web
+ 1946  cd seedbox-web
+ 1947  ls
+ 1948  cd templates/
+ 1949  ls
+ 1950  rm -rf base.html index.html
+ 1951  nano base.html
+ 1952  nano index.html
+ 1953  rm -rf components
+ 1954  sudo systemctl restart seedbox-web
+ 1955  sudo systemctl status seedbox-web
+ 1956  sudo systemctl status seedbox-web > /mnt/exstore/status.txt
+ 1957  ls
+ 1958  cd seedbox-web
+ 1959  ls
+ 1960  sudo systemctl restart seedbox-web
+ 1961  sudo systemctl status seedbox-web
+ 1962  history > history.txt

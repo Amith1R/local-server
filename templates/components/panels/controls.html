@@ -1,0 +1,136 @@
+<div class="panel" id="panel-controls">
+    <div class="g3">
+        <div class="card">
+            <div class="ch">
+                <div class="ch-l">
+                    <div class="ch-icon g">SB</div>
+                    <div>
+                        <div class="ch-title">Seedbox</div>
+                        <div class="ch-sub">VPN + qBittorrent</div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn g" onclick="act('start_seedbox')">Start</button>
+                <button class="btn r" onclick="act('stop_seedbox')">Stop</button>
+                <button class="btn y" onclick="act('restart_seedbox')">Restart</button>
+                <button class="btn b" onclick="act('check_ip')">Check IP</button>
+            </div>
+            
+            <div class="sep">
+                <div style="font-size:.65rem;font-weight:600;color:var(--tx2);margin-bottom:.55rem">Docker</div>
+                <div class="btn-row">
+                    <button class="btn g" onclick="act('start_docker')">Start</button>
+                    <button class="btn r" onclick="confirm_act('stop_docker','Stop Docker','Stops all containers and Docker daemon.')">Stop</button>
+                    <button class="btn gh" onclick="showOutput('docker_ps','Containers')">ps</button>
+                    <button class="btn gh" onclick="showOutput('docker_images','Images')">images</button>
+                    <button class="btn gh" onclick="showOutput('docker_stats','Stats')">stats</button>
+                </div>
+            </div>
+            
+            <div class="sep">
+                <div style="font-size:.65rem;font-weight:600;color:var(--tx2);margin-bottom:.55rem">External Disk</div>
+                <div class="btn-row">
+                    <button class="btn g" onclick="act('mount_disk')">Mount</button>
+                    <button class="btn gh" onclick="act('unmount_disk')">Unmount</button>
+                    <button class="btn y" onclick="act('remount_disk')">Remount</button>
+                    <button class="btn gh" onclick="showOutput('lsblk','Block Devices')">lsblk</button>
+                    <button class="btn gh" onclick="showOutput('df','Disk Usage')">df</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card c-or">
+            <div class="ch">
+                <div class="ch-l">
+                    <div class="ch-icon or">JF</div>
+                    <div><div class="ch-title">Jellyfin</div></div>
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn g" onclick="act('start_jellyfin')">Start</button>
+                <button class="btn r" onclick="act('stop_jellyfin')">Stop</button>
+                <button class="btn y" onclick="act('restart_jellyfin')">Restart</button>
+                <button class="btn or" onclick="showOutput('jellyfin_logs','Jellyfin Logs')">Logs</button>
+                <button class="btn gh" onclick="showOutput('jellyfin_transcode_check','Active Transcodes')">Transcodes</button>
+            </div>
+            
+            <div class="sep">
+                <div style="font-size:.65rem;font-weight:600;color:var(--tx2);margin-bottom:.55rem">Samba</div>
+                <div class="btn-row">
+                    <button class="btn g" onclick="act('start_samba')">Start</button>
+                    <button class="btn r" onclick="act('stop_samba')">Stop</button>
+                    <button class="btn y" onclick="act('restart_samba')">Restart</button>
+                    <button class="btn cy" onclick="showOutput('samba_status','Samba Status')">Status</button>
+                    <button class="btn b" onclick="showOutput('samba_config','smb.conf')">smb.conf</button>
+                </div>
+            </div>
+            
+            <div class="sep">
+                <div style="font-size:.65rem;font-weight:600;color:var(--tx2);margin-bottom:.55rem">Wetty Terminal</div>
+                <div class="btn-row">
+                    <button class="btn g" onclick="act('start_wetty')">Start</button>
+                    <button class="btn r" onclick="act('stop_wetty')">Stop</button>
+                    <button class="btn y" onclick="act('restart_wetty')">Restart</button>
+                    <button class="btn pk" onclick="sw('terminal',document.querySelector('[data-tab=terminal]'))">Open</button>
+                </div>
+            </div>
+            
+            <div class="sep">
+                <div style="font-size:.65rem;font-weight:600;color:var(--tx2);margin-bottom:.55rem">FileBrowser</div>
+                <div class="btn-row">
+                    <button class="btn g" onclick="act('start_filebrowser')">Start</button>
+                    <button class="btn r" onclick="act('stop_filebrowser')">Stop</button>
+                    <button class="btn y" onclick="act('restart_filebrowser')">Restart</button>
+                    <button class="btn pk" onclick="sw('files',document.querySelector('[data-tab=files]'))">Open</button>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display:flex;flex-direction:column;gap:1rem">
+            <div class="card c-pk">
+                <div class="ch">
+                    <div class="ch-l">
+                        <div class="ch-icon pk">NK</div>
+                        <div><div class="ch-title">Neko Browser</div></div>
+                    </div>
+                    <span class="sbadge" id="neko-ctl-badge">--</span>
+                </div>
+                <div class="btn-row">
+                    <button class="btn g" onclick="startNeko()">Start</button>
+                    <button class="btn r" onclick="confirm_act('stop_neko','Stop Browser','Stops Neko and frees RAM/CPU.')">Stop</button>
+                    <button class="btn y" onclick="confirm_act('restart_neko','Restart Browser','Restarts Neko.')">Restart</button>
+                    <button class="btn gh" onclick="showOutput('neko_logs','Neko Logs')">Logs</button>
+                </div>
+                <div style="margin-top:.6rem;font-size:.65rem;color:var(--tx2)">Download folder:</div>
+                <div style="display:flex;align-items:center;gap:.4rem;margin-top:.25rem">
+                    <div class="neko-dl-pill" id="ctl-neko-dl-path" onclick="openNekoPath()">/mnt/exstore/Downloads</div>
+                    <button class="btn cy" style="font-size:.6rem;padding:.2rem .48rem" onclick="openNekoPath()">Change</button>
+                </div>
+            </div>
+            
+            <div class="card c-rd">
+                <div class="ch">
+                    <div class="ch-l">
+                        <div class="ch-icon r">PW</div>
+                        <div><div class="ch-title">Power</div></div>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button class="btn y" onclick="confirm_act('power_save','Power Save','Stops all services. SSH stays active.')">Power Save</button>
+                    <button class="btn cy" onclick="confirm_act('restore_power_save','Restore','Starts Jellyfin, Samba, Wetty, FileBrowser.')">Restore</button>
+                </div>
+                <div class="btn-row" style="margin-top:.35rem">
+                    <button class="btn gh" onclick="confirm_act('reboot','Safe Reboot','Stops services cleanly then reboots.')">Reboot</button>
+                    <button class="btn r" onclick="confirm_act('shutdown','Safe Shutdown','Stops everything cleanly then powers off.')">Shutdown</button>
+                </div>
+                <div class="sep">
+                    <div class="btn-row">
+                        <button class="btn gh" onclick="showOutput('ping_avistaz','Ping AvistaZ')">Ping VPN</button>
+                        <button class="btn gh" onclick="showOutput('vainfo','VA Info (GPU)')">vainfo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

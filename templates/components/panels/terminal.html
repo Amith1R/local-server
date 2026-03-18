@@ -1,0 +1,18 @@
+<div class="panel embed" id="panel-terminal">
+    <div class="embed-tb">
+        <span class="embed-title">Web Terminal (Wetty)</span>
+        <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap">
+            <span class="sbadge" id="wetty-badge">checking...</span>
+            <button class="btn g" onclick="act('start_wetty').then(()=>setTimeout(()=>loadEmbed('wetty'),2500))">Start</button>
+            <button class="btn r" onclick="act('stop_wetty')">Stop</button>
+            <a class="btn pk" id="wetty-win" href="#" target="_blank" rel="noopener">New window</a>
+            <button class="btn gh" onclick="reloadEmbed('wetty-frame')">Reload</button>
+        </div>
+    </div>
+    <iframe id="wetty-frame" class="embed-frame" src="about:blank" allowfullscreen></iframe>
+    <div class="embed-offline" id="wetty-offline">
+        <div class="embed-offline-icon">[ ]</div>
+        <div class="embed-offline-title">Wetty not running</div>
+        <div class="embed-offline-sub">Click Start above to launch the web terminal.</div>
+    </div>
+</div>

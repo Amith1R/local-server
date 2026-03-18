@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Seedbox - amit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}">
+</head>
+<body>
+    <div id="tc"></div>
+    
+    {% include 'components/modals/confirm_modal.html' %}
+    {% include 'components/modals/output_modal.html' %}
+    {% include 'components/modals/rename_modal.html' %}
+    {% include 'components/modals/neko_path_modal.html' %}
+    {% include 'components/modals/path_modal.html' %}
+    
+    <div class="shell">
+        {% include 'components/nav.html' %}
+        
+        <div class="panels">
+            {% include 'components/panels/dashboard.html' %}
+            {% include 'components/panels/controls.html' %}
+            {% include 'components/panels/logs.html' %}
+            {% include 'components/panels/terminal.html' %}
+            {% include 'components/panels/files.html' %}
+            {% include 'components/panels/jellyfin.html' %}
+            {% include 'components/panels/downloads.html' %}
+            {% include 'components/panels/browser.html' %}
+            {% include 'components/panels/filemgr.html' %}
+            {% include 'components/panels/power.html' %}
+            {% include 'components/panels/runner.html' %}
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/utils/helpers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils/toast.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils/modals.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/panels/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/panels/controls.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/panels/downloads.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/panels/filemgr.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/panels/runner.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

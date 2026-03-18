@@ -1,0 +1,39 @@
+<div class="panel embed" id="panel-browser">
+    <div class="embed-tb">
+        <span class="embed-title">Remote Browser (Neko + Firefox + uBlock)</span>
+        <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap">
+            <span class="sbadge" id="neko-badge">checking...</span>
+            <button class="btn g" id="neko-start-btn" onclick="startNeko()">Start</button>
+            <button class="btn r" id="neko-stop-btn" onclick="confirm_act('stop_neko','Stop Browser','Stops Neko. Downloads in progress will stop.')">Stop</button>
+            <button class="btn y" onclick="confirm_act('restart_neko','Restart Browser','Restarts Neko browser.')">Restart</button>
+            <button class="btn gh" onclick="showOutput('neko_logs','Neko Logs')">Logs</button>
+            <a class="btn pk" id="neko-win" href="#" target="_blank" rel="noopener">New window</a>
+        </div>
+    </div>
+    <div class="neko-info" id="neko-info" style="display:none">
+        <div class="neko-stat">CPU: <b id="neko-cpu">--</b></div>
+        <div class="neko-stat">RAM: <b id="neko-mem">--</b></div>
+        <div style="flex:1"></div>
+        <span style="font-size:.64rem;color:var(--tx2)">Downloads to:</span>
+        <span class="neko-dl-pill" id="neko-dl-pill" onclick="openNekoPath()">/mnt/exstore/Downloads</span>
+        <button class="btn cy" style="font-size:.6rem;padding:.2rem .48rem" onclick="openNekoPath()">Change folder</button>
+    </div>
+    <iframe id="neko-frame" class="embed-frame" src="about:blank"
+            allow="autoplay; fullscreen; microphone; clipboard-read; clipboard-write"
+            style="display:none"></iframe>
+    <div class="neko-offline-page" id="neko-offline">
+        <div style="font-size:4rem;opacity:.18;font-weight:700;font-family:var(--mono)">B</div>
+        <div style="font-size:1.2rem;font-weight:700;color:var(--tx)">Remote Browser</div>
+        <div style="font-size:.76rem;color:var(--tx2);max-width:480px;line-height:1.8;text-align:center">
+            Firefox with uBlock Origin runs on your server.<br>
+            Downloads go directly to your server - nothing stored on your device.<br>
+            <strong style="color:var(--tx)">Stop it when not in use to save RAM and CPU.</strong>
+        </div>
+        <button class="neko-start-btn" onclick="startNeko()" id="neko-big-btn">Start Browser</button>
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem">
+            <span style="font-size:.68rem;color:var(--tx2)">Downloads saved to:</span>
+            <span class="neko-dl-pill" id="neko-offline-pill" onclick="openNekoPath()">/mnt/exstore/Downloads</span>
+            <button class="btn cy" style="font-size:.6rem;padding:.22rem .5rem" onclick="openNekoPath()">Change</button>
+        </div>
+    </div>
+</div>

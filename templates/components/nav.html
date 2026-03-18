@@ -1,0 +1,54 @@
+<nav>
+    <div class="nav-brand">
+        <div class="nav-brand-icon">SB</div>
+        <div>
+            <div class="nav-brand-name">Seedbox</div>
+            <div class="nav-brand-sub">amit / amith-T102</div>
+        </div>
+    </div>
+    
+    <button class="nav-menu-btn" id="menu-btn" onclick="toggleMenu()">&#9776;</button>
+    
+    <div class="nav-tabs" id="nav-tabs">
+        <button class="ntab active" data-tab="dashboard" onclick="sw('dashboard',this)">
+            <span class="ntab-dot" id="nd-dash"></span>Dashboard
+        </button>
+        <button class="ntab" data-tab="controls" onclick="sw('controls',this)">
+            <span class="ntab-dot"></span>Controls
+        </button>
+        <button class="ntab" data-tab="logs" onclick="sw('logs',this)">
+            <span class="ntab-dot b" style="background:var(--bl)"></span>Logs
+        </button>
+        <button class="ntab" data-tab="terminal" onclick="sw('terminal',this)">
+            <span class="ntab-dot" id="nd-wetty"></span>Terminal
+        </button>
+        <button class="ntab" data-tab="files" onclick="sw('files',this)">
+            <span class="ntab-dot" id="nd-fb"></span>FileBrowser
+        </button>
+        <button class="ntab" data-tab="jellyfin" onclick="sw('jellyfin',this)">
+            <span class="ntab-dot" id="nd-jf"></span>Jellyfin
+        </button>
+        <button class="ntab" data-tab="downloads" onclick="sw('downloads',this)">
+            <span class="ntab-dot warn"></span>Downloads
+        </button>
+        <button class="ntab" data-tab="browser" onclick="sw('browser',this)">
+            <span class="ntab-dot" id="nd-neko" style="background:var(--pk)"></span>Browser
+        </button>
+        <button class="ntab" data-tab="filemgr" onclick="sw('filemgr',this);loadFM()">
+            <span class="ntab-dot" style="background:var(--cy)"></span>Files
+        </button>
+        <button class="ntab" data-tab="power" onclick="sw('power',this)">
+            <span class="ntab-dot" style="background:var(--yl)"></span>Power
+        </button>
+        <button class="ntab" data-tab="runner" onclick="sw('runner',this)">
+            <span class="ntab-dot" style="background:var(--or)"></span>Run Cmd
+        </button>
+    </div>
+    
+    <div class="nav-right">
+        <div class="nav-time" id="nav-time">--:--:--</div>
+        <span class="status-pill" id="h-pill">loading</span>
+        <button class="nav-ico" id="theme-btn" onclick="toggleTheme()" title="Theme">T</button>
+        <button class="nav-ico" id="rfr" onclick="fetchStatus()" title="Refresh">R</button>
+    </div>
+</nav>
