@@ -16,9 +16,31 @@ echo ""
 # ── 1. Copy files ──────────────────────────
 echo "  ▶ Copying files to $INSTALL_DIR..."
 mkdir -p "$INSTALL_DIR/templates"
-cp app.py           "$INSTALL_DIR/"
-cp requirements.txt "$INSTALL_DIR/"
-cp -r templates/    "$INSTALL_DIR/"
+
+copy_if_needed() {
+    local src="$1"
+    local dest="$2"
+    if [ "$(readlink -f "$src")" = "$(readlink -f "$dest")" ]; then
+        return 0
+    fi
+    cp "$src" "$dest"
+}
+
+copy_tree_if_needed() {
+    local src="$1"
+    local dest="$2"
+    if [ "$(readlink -f "$src")" = "$(readlink -f "$dest")" ]; then
+        return 0
+    fi
+    rm -rf "$dest"
+    cp -r "$src" "$dest"
+}
+
+copy_if_needed app.py "$INSTALL_DIR/app.py"
+copy_if_needed seedbox-root-helper "$INSTALL_DIR/seedbox-root-helper"
+copy_if_needed requirements.txt "$INSTALL_DIR/requirements.txt"
+copy_tree_if_needed templates "$INSTALL_DIR/templates"
+chmod +x "$INSTALL_DIR/seedbox-root-helper"
 echo "  ✅ Files copied"
 
 # ── 2. Python venv ─────────────────────────
@@ -33,6 +55,12 @@ echo "  ▶ Installing systemd service..."
 sudo cp "$SERVICE_FILE" /etc/systemd/system/
 sudo sed -i "s|/home/amit|$HOME|g" /etc/systemd/system/seedbox-web.service
 sudo sed -i "s|User=amit|User=$USER|g" /etc/systemd/system/seedbox-web.service
+sudo cp "$INSTALL_DIR/seedbox-root-helper" /usr/local/bin/seedbox-root-helper
+sudo sed -i "s|__SEEDBOX_HOME__|$HOME|g" /usr/local/bin/seedbox-root-helper
+sudo chmod 755 /usr/local/bin/seedbox-root-helper
+echo "$USER ALL=(root) NOPASSWD: /usr/local/bin/seedbox-root-helper *" | sudo tee /etc/sudoers.d/seedbox-web >/dev/null
+sudo chmod 440 /etc/sudoers.d/seedbox-web
+sudo visudo -cf /etc/sudoers.d/seedbox-web
 sudo systemctl daemon-reload
 sudo systemctl enable seedbox-web
 sudo systemctl restart seedbox-web
